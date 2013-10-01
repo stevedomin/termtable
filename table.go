@@ -36,7 +36,7 @@ func NewTable(rows [][]string, options *TableOptions) *Table {
 	}
 	if rows != nil {
 		t.Rows = rows
-		t.ComputeProperties()
+		t.computeProperties()
 	}
 	return t
 }
@@ -45,23 +45,23 @@ func (t *Table) SetHeader(header []string) {
 	t.HasHeader = true
 	// There is a better way to do this
 	t.Rows = append([][]string{header}, t.Rows...)
-	t.ComputeProperties()
+	t.computeProperties()
 }
 
 func (t *Table) AddRow(row []string) {
 	t.Rows = append(t.Rows, row)
-	t.ComputeProperties()
+	t.computeProperties()
 }
 
-func (t *Table) ComputeProperties() {
+func (t *Table) computeProperties() {
 	if len(t.Rows) > 0 {
 		t.numColumns = len(t.Rows[0])
 		t.columnsWidth = make([]int, t.numColumns)
-		t.Recalculate()
+		t.recalculate()
 	}
 }
 
-func (t *Table) Recalculate() {
+func (t *Table) recalculate() {
 	t.Columns = [][]string{}
 	for i := 0; i < t.numColumns; i++ {
 		t.Columns = append(t.Columns, []string{})
@@ -80,7 +80,7 @@ func (t *Table) Render() {
 
 	if t.HasHeader {
 		if t.Options.UseSeparator {
-			tableStr += t.SeparatorLine() + "\n"
+			tableStr += t.separatorLine() + "\n"
 		}
 		for j := range t.Rows[0] {
 			tableStr += t.getCell(i, j)
@@ -90,7 +90,7 @@ func (t *Table) Render() {
 	}
 
 	if t.Options.UseSeparator {
-		tableStr += t.SeparatorLine() + "\n"
+		tableStr += t.separatorLine() + "\n"
 	}
 
 	for i < len(t.Rows) {
@@ -105,13 +105,13 @@ func (t *Table) Render() {
 	}
 
 	if t.Options.UseSeparator {
-		tableStr += "\n" + t.SeparatorLine()
+		tableStr += "\n" + t.separatorLine()
 	}
 
 	fmt.Println(tableStr)
 }
 
-func (t *Table) SeparatorLine() string {
+func (t *Table) separatorLine() string {
 	sep := "+"
 	for _, w := range t.columnsWidth {
 		sep += strings.Repeat("-", w+2*t.Options.Padding)
