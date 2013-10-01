@@ -98,12 +98,14 @@ func (t *Table) Render() {
 		for j := range row {
 			tableStr += t.getCell(i, j)
 		}
-		tableStr += "\n"
+		if i < len(t.Rows)-1 {
+			tableStr += "\n"
+		}
 		i++
 	}
 
 	if t.Options.UseSeparator {
-		tableStr += t.SeparatorLine()
+		tableStr += "\n" + t.SeparatorLine()
 	}
 
 	fmt.Println(tableStr)
