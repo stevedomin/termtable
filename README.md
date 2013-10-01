@@ -68,10 +68,11 @@ func main() {
 }
 ```
 
-## TODO
+## Todo
 
 * Column align
 * Cell align
+* Support more types: int, float, bool
 * Rows separator
 * Multiline cell
 * Custom column width
