@@ -57,7 +57,7 @@ func main() {
     })
     t.Render()
 
-    // Output:
+    // Output (vertical bars look better in terminal):
     // +---------------+---------------+-------------+
     // |   LOWERCASE   |   UPPERCASE   |   NUMBERS   |
     // +---------------+---------------+-------------+
