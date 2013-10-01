@@ -15,7 +15,7 @@ func main() {
 	t.AddRow([]string{"hijkl", "JKL", "9000"})
 	t.Render()
 
-	fmt.Println("Simple table, alternative syntax:")
+	fmt.Println("\nSimple table, alternative syntax:")
 
 	rows := [][]string{
 		[]string{"abc", "ABCD", "12345"},
@@ -26,7 +26,7 @@ func main() {
 	t.SetHeader([]string{"LOWERCASE", "UPPERCASE", "NUMBERS"})
 	t.Render()
 
-	fmt.Println("Simple table w/ separators and custom padding:")
+	fmt.Println("\nSimple table w/ separators and custom padding:")
 
 	t = termtable.NewTable(nil, &termtable.TableOptions{
 		Padding:      3,
