@@ -1,7 +1,6 @@
 package termtable
 
 import (
-	"fmt"
 	"math"
 	"strings"
 )
@@ -74,7 +73,7 @@ func (t *Table) recalculate() {
 	}
 }
 
-func (t *Table) Render() {
+func (t *Table) Render() string {
 	var tableStr string
 	i := 0
 
@@ -108,7 +107,7 @@ func (t *Table) Render() {
 		tableStr += "\n" + t.separatorLine()
 	}
 
-	fmt.Println(tableStr)
+	return tableStr
 }
 
 func (t *Table) separatorLine() string {
