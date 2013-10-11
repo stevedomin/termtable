@@ -1,6 +1,7 @@
 package termtable
 
 import (
+	"bytes"
 	"math"
 	"strings"
 )
@@ -74,40 +75,46 @@ func (t *Table) recalculate() {
 }
 
 func (t *Table) Render() string {
-	var tableStr string
+	// allocate a 1k byte buffer
+	bb := make([]byte, 0, 1024)
+	buf := bytes.NewBuffer(bb)
+
 	i := 0
 
 	if t.HasHeader {
 		if t.Options.UseSeparator {
-			tableStr += t.separatorLine() + "\n"
+			buf.WriteString(t.separatorLine())
+			buf.WriteRune('\n')
 		}
 		for j := range t.Rows[0] {
-			tableStr += t.getCell(i, j)
+			buf.WriteString(t.getCell(i, j))
 		}
 		i = 1
-		tableStr += "\n"
+		buf.WriteRune('\n')
 	}
 
 	if t.Options.UseSeparator {
-		tableStr += t.separatorLine() + "\n"
+		buf.WriteString(t.separatorLine())
+		buf.WriteRune('\n')
 	}
 
 	for i < len(t.Rows) {
 		row := t.Rows[i]
 		for j := range row {
-			tableStr += t.getCell(i, j)
+			buf.WriteString(t.getCell(i, j))
 		}
 		if i < len(t.Rows)-1 {
-			tableStr += "\n"
+			buf.WriteRune('\n')
 		}
 		i++
 	}
 
 	if t.Options.UseSeparator {
-		tableStr += "\n" + t.separatorLine()
+		buf.WriteRune('\n')
+		buf.WriteString(t.separatorLine())
 	}
 
-	return tableStr
+	return buf.String()
 }
 
 func (t *Table) separatorLine() string {
