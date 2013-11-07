@@ -17,6 +17,7 @@ Print a simple table without separators:
 package main
 
 import(
+    "fmt"
     "github.com/stevedomin/termtable"
 )
 
@@ -26,7 +27,7 @@ func main() {
     t.AddRow([]string{"abc", "ABCD", "12345"})
     t.AddRow([]string{"defg", "EFGHI", "678"})
     t.AddRow([]string{"hijkl", "JKL", "9000"})
-    t.Render()
+    fmt.Println(t.Render())
 
     // Output :
     // LOWERCASE UPPERCASE NUMBERS
@@ -55,7 +56,7 @@ func main() {
      Padding: 3,
      UseSeparator: true,
     })
-    t.Render()
+    fmt.Println(t.Render())
 
     // Output (vertical bars look better in terminal):
     // +---------------+---------------+-------------+
