@@ -5,8 +5,8 @@ A Go library to easily generate table in you CLI
 
 ## Install
 
-```go
-go get github.com/stevedomin/termtable
+```bash
+$ go get github.com/stevedomin/termtable
 ```
 
 ## Usage
@@ -67,6 +67,20 @@ func main() {
     // |   hijkl       |   JKL         |   9000      |
     // +---------------+---------------+-------------+
 }
+```
+
+## Development
+
+To run test:
+
+```bash
+$ go test
+```
+
+To run benchmarks:
+
+```bash
+$ go test -bench . -benchmem
 ```
 
 ## Todo
