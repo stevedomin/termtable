@@ -1,7 +1,7 @@
 termtable
 ==========
 
-A Go library to easily generate ASCII table
+A Go library to easily generate table in you CLI
 
 ## Install
 
