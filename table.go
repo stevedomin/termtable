@@ -3,8 +3,11 @@ package termtable
 import (
 	"bytes"
 	"math"
+	"regexp"
 	"strings"
 )
+
+var ansiRegexp = regexp.MustCompile("\x1b[^m]*m")
 
 type Table struct {
 	Rows    [][]string
@@ -69,7 +72,7 @@ func (t *Table) recalculate() {
 	for _, row := range t.Rows {
 		for j, cellContent := range row {
 			t.Columns[j] = append(t.Columns[j], cellContent)
-			t.columnsWidth[j] = int(math.Max(float64(len(cellContent)), float64(t.columnsWidth[j])))
+			t.columnsWidth[j] = int(math.Max(float64(visibleLen(cellContent)), float64(t.columnsWidth[j])))
 		}
 	}
 }
@@ -138,7 +141,7 @@ func (t *Table) getCell(row, col int) string {
 	}
 
 	cellStr += cellContent
-	cellStr += strings.Repeat(" ", t.columnsWidth[col]-len(cellContent))
+	cellStr += strings.Repeat(" ", t.columnsWidth[col]-visibleLen(cellContent))
 	cellStr += spacePadding
 
 	if t.Options.UseSeparator {
@@ -148,4 +151,8 @@ func (t *Table) getCell(row, col int) string {
 	}
 
 	return cellStr
+}
+
+func visibleLen(s string) int {
+	return len(ansiRegexp.ReplaceAllLiteralString(s, ""))
 }
